@@ -10,7 +10,7 @@ public class BlockChecker : MonoBehaviour
     public static bool[,] Blocks { get => blocks; set => blocks = value; }
 
 	//揃ってるかどうか調べる関数
-    void CheckLines()
+    public void CheckLines()
 	{
 		for (int i = 0; i < 20; i++)
 		{
@@ -34,7 +34,7 @@ public class BlockChecker : MonoBehaviour
 	}
 
 	//揃ってたら消す関数
-	void DeleteBlocks(int h)
+	public void DeleteBlocks(int h)
 	{
 		//一列ブロックのGameObjectを削除する
 		GameObject[] glist = GameObject.FindGameObjectsWithTag("End");

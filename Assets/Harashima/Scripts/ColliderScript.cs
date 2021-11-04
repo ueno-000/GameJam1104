@@ -5,9 +5,7 @@ using UnityEngine;
 public class ColliderScript : MonoBehaviour
 {
     //コライダーを判定する二次元配列
-    static bool[,] colliderArray = new bool[20,10];
 
-    public static bool[,] ColliderArray1 { get => colliderArray; set => colliderArray = value; }
 
 
     //各コライダーの要素数の設定
@@ -18,7 +16,7 @@ public class ColliderScript : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         BlockChecker.Blocks[tate, yoko] = true;
-        Debug.Log(tate + " " + yoko + colliderArray[tate, yoko]);
+        Debug.Log(tate + " " + yoko + BlockChecker.Blocks[tate, yoko]);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
