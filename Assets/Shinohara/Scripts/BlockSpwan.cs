@@ -25,7 +25,7 @@ public class BlockSpwan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_spwanFlag)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             InstantBlock();
         }
