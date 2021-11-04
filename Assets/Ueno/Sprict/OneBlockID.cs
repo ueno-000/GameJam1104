@@ -6,6 +6,7 @@ using UnityEngine;
 public class OneBlockID : MonoBehaviour
 {
     private GameObject _block;
+    [SerializeField] BlockChecker _blockChecker;
     //ブロックの列のID
     public double iD = -1;
 
@@ -23,6 +24,7 @@ public class OneBlockID : MonoBehaviour
         {
             this.gameObject.transform.parent = null;
             this.tag = "End";
+           // _blockChecker.
             iDjudgement();
         }
     }

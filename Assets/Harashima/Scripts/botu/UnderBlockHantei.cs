@@ -12,10 +12,10 @@ public class UnderBlockHantei : MonoBehaviour
     }
     private void Update()
     {
-        if (ColliderScript.ColliderArray1[0,1]&& ColliderScript.ColliderArray1[0, 2] && ColliderScript.ColliderArray1[0, 3]  )
-        {
-            DestroySelf();
-        }
+        //if (ColliderScript.ColliderArray1[0,1]&& ColliderScript.ColliderArray1[0, 2] && ColliderScript.ColliderArray1[0, 3]  )
+        //{
+        //    DestroySelf();
+        //}
     }
     void DestroySelf()
     {
