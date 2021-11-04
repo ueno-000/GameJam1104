@@ -37,11 +37,11 @@ public class BlockChecker : MonoBehaviour
 	void DeleteBlocks(int h)
 	{
 		//一列ブロックのGameObjectを削除する
-		GameObject[] glist = GameObject.FindGameObjectsWithTag("block");
+		GameObject[] glist = GameObject.FindGameObjectsWithTag("End");
 		foreach (GameObject go in glist)
 		{
-			//問題あり
-			if (go.transform.position.y == h)
+			//問題あり、IDとhが同じ値だったらに変更
+			if (go.GetComponent<OneBlockID>().iD == h)
 			{
 				Destroy(go);
 			}
