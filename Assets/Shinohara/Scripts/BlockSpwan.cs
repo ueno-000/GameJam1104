@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sample : MonoBehaviour
+/// <summary>
+/// ブロックを生成するスクリプト
+/// </summary>
+public class BlockSpwan : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
