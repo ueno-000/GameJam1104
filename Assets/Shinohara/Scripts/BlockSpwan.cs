@@ -7,15 +7,33 @@ using UnityEngine;
 /// </summary>
 public class BlockSpwan : MonoBehaviour
 {
+    /// <summary>ブロック達</summary>
+    [SerializeField] GameObject[] m_blocks = default;
+    /// <summary>次のブロックを生成するフラグ true=生成</summary>
+    [SerializeField] bool m_spwanFlag = false;
+    /// <summary>ブロックを生成する場所</summary>
+    Vector2 m_blockSpwaner = default;
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_blockSpwaner = this.gameObject.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            InstantBlock();
+        }
+    }
+
+    /// <summary>
+    /// 次のブロックをランダムに選択し生成する
+    /// </summary>
+    public void InstantBlock()
+    {
+        int index = Random.Range(0, 5);
+        Instantiate(m_blocks[index], m_blockSpwaner, Quaternion.identity);
     }
 }
