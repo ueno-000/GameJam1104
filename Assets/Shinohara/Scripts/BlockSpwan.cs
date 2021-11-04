@@ -10,9 +10,12 @@ public class BlockSpwan : MonoBehaviour
     /// <summary>ブロック達</summary>
     [SerializeField] GameObject[] m_blocks = default;
     /// <summary>次のブロックを生成するフラグ true=生成</summary>
-    [SerializeField] bool m_spwanFlag = false;
+    private static bool m_spwanFlag = false;
     /// <summary>ブロックを生成する場所</summary>
     Vector2 m_blockSpwaner = default;
+    /// <summary>次のブロックを生成するフラグ true=生成</summary>
+    public static bool SpwanFlag { get => m_spwanFlag; set => m_spwanFlag = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +25,7 @@ public class BlockSpwan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (m_spwanFlag)
         {
             InstantBlock();
         }
