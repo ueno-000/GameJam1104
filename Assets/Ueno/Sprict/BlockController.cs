@@ -10,7 +10,7 @@ public class BlockController : MonoBehaviour
     //ブロックを動かしたときの音
     [SerializeField]AudioSource _audio;
     //1ブロックの大きさ
-    float _oneBlock = 1.5f;
+    [SerializeField]float _oneBlock = 1.5f;
     //動いて良いブロックかの判定
     public bool _fallBlock = true;
 
