@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class OneBlockID : MonoBehaviour
 {
     private GameObject _block;
     //ブロックの列のID
-    public int iD = -1;
+    public double iD = -1;
 
     //BlockController _fallBlock;
 
@@ -22,6 +23,14 @@ public class OneBlockID : MonoBehaviour
         {
             this.gameObject.transform.parent = null;
             this.tag = "End";
+            iDjudgement();
         }
     }
+
+    void iDjudgement() 
+    {
+        double n;
+        n = this.transform.position.y / 2;
+        iD = (Math.Floor(n));
+     }
 }
