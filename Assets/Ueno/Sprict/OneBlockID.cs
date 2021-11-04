@@ -6,7 +6,8 @@ using UnityEngine;
 public class OneBlockID : MonoBehaviour
 {
     private GameObject _block;
-    [SerializeField] BlockChecker _blockChecker;
+    GameObject _gameManager;
+    BlockChecker _blockChecker  = default;
     //ブロックの列のID
     public double iD = -1;
 
@@ -15,6 +16,8 @@ public class OneBlockID : MonoBehaviour
     private void Start()
     {
         _block = GameObject.FindGameObjectWithTag("Block");
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        _blockChecker = _gameManager.GetComponent<BlockChecker>();
         //_block = GameObject.Find("Block1");
     }
 
@@ -23,8 +26,8 @@ public class OneBlockID : MonoBehaviour
         if (_block.GetComponent<BlockController>()._fallBlock == false)
         {
             this.gameObject.transform.parent = null;
-            this.tag = "End";
-           // _blockChecker.
+            this.tag = "Change";
+            _blockChecker.CheckLines();
             iDjudgement();
         }
     }
@@ -34,5 +37,6 @@ public class OneBlockID : MonoBehaviour
         double n;
         n = this.transform.position.y / 2;
         iD = (Math.Floor(n));
+        Debug.Log(iD);
      }
 }

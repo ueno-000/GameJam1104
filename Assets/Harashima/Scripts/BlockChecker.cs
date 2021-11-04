@@ -5,20 +5,20 @@ using UnityEngine;
 public class BlockChecker : MonoBehaviour
 {
 	//コライダーを判定する二次元配列
-	static　bool[,] blocks = new bool[20, 10];
+	static　bool[,] blocks = new bool[20, 11];
 
     public static bool[,] Blocks { get => blocks; set => blocks = value; }
 
 	//揃ってるかどうか調べる関数
     public void CheckLines()
 	{
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 18; i++)
 		{
 			bool isDelete = true;
 			for (int j = 0; j < 10; j++)
 			{
 				//上から順に調べたいため、「i」ではなく「20-i-1」を使用する
-				if (!Blocks[j, 20 - i - 1])
+				if (!Blocks[18-i-1,j])
 				{
 					isDelete = false;
 					break;
@@ -28,7 +28,7 @@ public class BlockChecker : MonoBehaviour
 			if (isDelete)
 			{
 				//一列ブロックを削除
-				DeleteBlocks(20 - i - 1);
+				DeleteBlocks(18	 - i - 1);
 			}
 		}
 	}
@@ -37,12 +37,16 @@ public class BlockChecker : MonoBehaviour
 	public void DeleteBlocks(int h)
 	{
 		//一列ブロックのGameObjectを削除する
-		GameObject[] glist = GameObject.FindGameObjectsWithTag("End");
+		GameObject[] glist = GameObject.FindGameObjectsWithTag("Change");
 		foreach (GameObject go in glist)
 		{
-			//問題あり、IDとhが同じ値だったらに変更
-			if (go.GetComponent<OneBlockID>().iD == h)
+            if (go.name == "dodai")
+            {
+				Debug.Log("dotdai");
+            }
+			else if (go.GetComponent<OneBlockID>().iD == h)
 			{
+				Debug.Log("消える");
 				Destroy(go);
 			}
 		}

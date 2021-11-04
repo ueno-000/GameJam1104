@@ -52,7 +52,7 @@ public class BlockController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "End")
+        if (other.gameObject.tag == "End" || other.gameObject.tag == "Change") 
         {
             _fallBlock = false;
             Debug.Log("ブロックと接触した");

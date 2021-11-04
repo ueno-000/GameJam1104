@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dcadf779b071d4e9d5df7e6d34f3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _blockChecker: {fileID: 0}
   iD: -1
 --- !u!114 &7169839166514316299
 MonoBehaviour:
@@ -223,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dcadf779b071d4e9d5df7e6d34f3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _blockChecker: {fileID: 0}
   iD: -1
 --- !u!114 &1922077217326850477
 MonoBehaviour:
@@ -236,6 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dcadf779b071d4e9d5df7e6d34f3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _blockChecker: {fileID: 0}
   iD: -1
 --- !u!114 &4088813769024964906
 MonoBehaviour:
@@ -249,6 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dcadf779b071d4e9d5df7e6d34f3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _blockChecker: {fileID: 0}
   iD: -1
 --- !u!1001 &7340397083327347244
 PrefabInstance:
