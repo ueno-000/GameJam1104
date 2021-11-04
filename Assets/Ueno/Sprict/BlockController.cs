@@ -56,6 +56,7 @@ public class BlockController : MonoBehaviour
         {
             _fallBlock = false;
             Debug.Log("ブロックと接触した");
+            //Destroy(this.gameObject);
         }
     }
 }
