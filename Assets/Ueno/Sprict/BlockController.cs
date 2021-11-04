@@ -25,13 +25,13 @@ public class BlockController : MonoBehaviour
     private void BlockMove()
     {
         // 左矢印キーで左に動く
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             transform.position += new Vector3(-_oneBlock, 0, 0);
             _audio.Play();
         }
         // 右矢印キーで右に動く
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             transform.position += new Vector3(_oneBlock, 0, 0);
             _audio.Play();
