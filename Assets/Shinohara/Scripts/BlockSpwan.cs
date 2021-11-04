@@ -36,7 +36,7 @@ public class BlockSpwan : MonoBehaviour
     /// </summary>
     public void InstantBlock()
     {
-        int index = Random.Range(0, 5);
+        int index = Random.Range(0, 7);
         Instantiate(m_blocks[index], m_blockSpwaner, Quaternion.identity);
     }
 }
