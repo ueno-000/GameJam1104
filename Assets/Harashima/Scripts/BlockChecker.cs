@@ -15,7 +15,7 @@ public class BlockChecker : MonoBehaviour
 		for (int i = 0; i < 18; i++)
 		{
 			bool isDelete = true;
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < 12; j++)
 			{
 				//上から順に調べたいため、「i」ではなく「20-i-1」を使用する
 				if (!Blocks[18-i-1,j])
@@ -29,6 +29,7 @@ public class BlockChecker : MonoBehaviour
 			{
 				//一列ブロックを削除
 				DeleteBlocks(18	 - i - 1);
+				Debug.Log( 18 - i - 1);
 			}
 		}
 	}

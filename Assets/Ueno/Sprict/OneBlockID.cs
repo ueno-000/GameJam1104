@@ -35,8 +35,8 @@ public class OneBlockID : MonoBehaviour
     void iDjudgement() 
     {
         double n;
-        n = this.transform.position.y / 2;
-        iD = (Math.Floor(n));
-        Debug.Log(iD);
+        n = this.transform.position.y / 1.5;
+        iD = (Math.Floor(n)) - 1;
+        Debug.Log("ID=" + iD);
      }
 }
