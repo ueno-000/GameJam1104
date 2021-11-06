@@ -10,6 +10,7 @@ public class OneBlockID : MonoBehaviour
     BlockChecker _blockChecker  = default;
     //ブロックの列のID
     public double iD = -1;
+    private bool m_flag = false;
 
     //BlockController _fallBlock;
 
@@ -23,12 +24,16 @@ public class OneBlockID : MonoBehaviour
 
     void Update()
     {
-        if (_block.GetComponent<BlockController>()._fallBlock == false)
+        if (_block.GetComponent<BlockController>()._fallBlock == false  && m_flag == false)
         {
+            Debug.Log("走る");
             this.gameObject.transform.parent = null;
             this.tag = "Change";
             _blockChecker.CheckLines();
             iDjudgement();
+            m_flag = true;
+            //Rigidbody2D rd2 = this.gameObject.AddComponent<Rigidbody2D>();
+            //hennsu.GetComponent<Rigidbody2D>().gravityScale = 0;
         }
     }
 

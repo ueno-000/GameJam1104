@@ -16,7 +16,7 @@ public class ColliderScript : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         BlockChecker.Blocks[tate, yoko] = true;
-        Debug.Log(tate + " " + yoko + BlockChecker.Blocks[tate, yoko]);
+        //Debug.Log(tate + " " + yoko + BlockChecker.Blocks[tate, yoko]);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
