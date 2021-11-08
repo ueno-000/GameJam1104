@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// ゲーム開始から終了まで管理する
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     /// <summary>次の列が生成される場所 指定した数字分上に列が作られる</summary>
     [SerializeField] float _addHeight = 0;
 
+    MinoColor _selectMino = default;
     //test用の数字
     [SerializeField] int x = 0;
     [SerializeField] int y = 0;
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _blocks[y, x].GetComponent<SpriteRenderer>().color = Color.red;
+            SelectMino();
         }   
     }
 
@@ -60,4 +62,70 @@ public class GameManager : MonoBehaviour
             _blocks[y, x] = block;
         }
     }
+
+    private void SelectMino()
+    {
+        int number = Random.Range(0, 7);
+        _selectMino = MinoColor.Red + number;
+        Debug.Log(_selectMino);
+        switch (_selectMino)
+        {
+            case MinoColor.Red:
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.red;
+                _blocks[18, 4].GetComponent<SpriteRenderer>().color = Color.red;
+                _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.red;
+                _blocks[17, 4].GetComponent<SpriteRenderer>().color = Color.red;
+                break;
+            case MinoColor.Blue:
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.blue;
+                _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.blue;
+                _blocks[17, 5].GetComponent<SpriteRenderer>().color = Color.blue;
+                _blocks[17, 6].GetComponent<SpriteRenderer>().color = Color.blue;
+                break;
+            case MinoColor.Green:
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.green;
+                _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.green;
+                _blocks[18, 6].GetComponent<SpriteRenderer>().color = Color.green;
+                _blocks[17, 6].GetComponent<SpriteRenderer>().color = Color.green;
+                break;
+            case MinoColor.Purple:
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 1f);
+                _blocks[18, 4].GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 1f);
+                _blocks[18, 5].GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 1f);
+                _blocks[18, 6].GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 1f);
+                break;
+            case MinoColor.Orange:
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = new Color(1f ,0.5f, 0);
+                _blocks[18, 5].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
+                _blocks[17, 5].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
+                _blocks[17, 4].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
+                break;
+            case MinoColor.Yellow:
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.yellow;
+                _blocks[19, 6].GetComponent<SpriteRenderer>().color = Color.yellow;
+                _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.yellow;
+                _blocks[18, 6].GetComponent<SpriteRenderer>().color = Color.yellow;
+                break;
+            case MinoColor.LigthBlue:
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
+                _blocks[18, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
+                _blocks[17, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
+                _blocks[16, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
+                break;
+
+
+
+        }
+    }
+}
+
+public enum MinoColor
+{
+    Red,
+    Blue,
+    Green,
+    Purple,
+    Orange,
+    Yellow,
+    LigthBlue
 }

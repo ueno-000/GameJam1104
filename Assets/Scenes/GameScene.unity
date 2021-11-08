@@ -237,8 +237,8 @@ MonoBehaviour:
     type: 3}
   _y: -1
   _addHeight: 0.45
-  x: 0
-  y: 0
+  x: 5
+  y: 19
 --- !u!4 &1691271014
 Transform:
   m_ObjectHideFlags: 0
