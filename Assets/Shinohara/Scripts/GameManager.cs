@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _addHeight = 0;
     
     /// <summary>生成したミノ（操作中ミノ）</summary>
-    MinoColor _selectMino = MinoColor.Red;
+    MinoColor _selectMino = default;
     /// <summary>生成されたミノ色の名前</summary>
     static string _selectColorName = "";
     /// <summary>操作中ミノの各マス</summary>
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
             _y += _addHeight;
 
         }
+
         SelectMino();
     }
 
@@ -52,8 +53,8 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            
-        }   
+            SelectMino();
+        }
     }
 
     /// <summary>
@@ -75,8 +76,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SelectMino()
     {
-        //int number = Random.Range(0, 7);
-       // _selectMino = MinoColor.Red + number;
+        int number = Random.Range(0, 7);
+        _selectMino =  (MinoColor)number;
 
         switch (_selectMino)
         {
@@ -96,40 +97,94 @@ public class GameManager : MonoBehaviour
                 _selectColorName = "Red";
                 break;
             case MinoColor.Blue:
+                _currentBlocks[0, 0] = 19;
+                _currentBlocks[0, 1] = 5;
+                _currentBlocks[1, 0] = 18;
+                _currentBlocks[1, 1] = 5;
+                _currentBlocks[2, 0] = 17;
+                _currentBlocks[2, 1] = 5;
+                _currentBlocks[3, 0] = 17;
+                _currentBlocks[3, 1] = 6;
                 _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.blue;
                 _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.blue;
                 _blocks[17, 5].GetComponent<SpriteRenderer>().color = Color.blue;
                 _blocks[17, 6].GetComponent<SpriteRenderer>().color = Color.blue;
+                _selectColorName = "Blue";
                 break;
             case MinoColor.Green:
+                _currentBlocks[0, 0] = 19;
+                _currentBlocks[0, 1] = 5;
+                _currentBlocks[1, 0] = 18;
+                _currentBlocks[1, 1] = 5;
+                _currentBlocks[2, 0] = 18;
+                _currentBlocks[2, 1] = 4;
+                _currentBlocks[3, 0] = 17;
+                _currentBlocks[3, 1] = 4;
                 _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.green;
                 _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.green;
-                _blocks[18, 6].GetComponent<SpriteRenderer>().color = Color.green;
-                _blocks[17, 6].GetComponent<SpriteRenderer>().color = Color.green;
+                _blocks[18, 4].GetComponent<SpriteRenderer>().color = Color.green;
+                _blocks[17, 4].GetComponent<SpriteRenderer>().color = Color.green;
+                _selectColorName = "Green";
                 break;
             case MinoColor.Purple:
+                _currentBlocks[0, 0] = 19;
+                _currentBlocks[0, 1] = 5;
+                _currentBlocks[1, 0] = 18;
+                _currentBlocks[1, 1] = 4;
+                _currentBlocks[2, 0] = 18;
+                _currentBlocks[2, 1] = 5;
+                _currentBlocks[3, 0] = 18;
+                _currentBlocks[3, 1] = 6;
                 _blocks[19, 5].GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 1f);
                 _blocks[18, 4].GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 1f);
                 _blocks[18, 5].GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 1f);
                 _blocks[18, 6].GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 1f);
+                _selectColorName = "Purple";
                 break;
             case MinoColor.Orange:
+                _currentBlocks[0, 0] = 19;
+                _currentBlocks[0, 1] = 5;
+                _currentBlocks[1, 0] = 18;
+                _currentBlocks[1, 1] = 5;
+                _currentBlocks[2, 0] = 17;
+                _currentBlocks[2, 1] = 5;
+                _currentBlocks[3, 0] = 17;
+                _currentBlocks[3, 1] = 4;
                 _blocks[19, 5].GetComponent<SpriteRenderer>().color = new Color(1f ,0.5f, 0);
                 _blocks[18, 5].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
                 _blocks[17, 5].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
                 _blocks[17, 4].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
+                _selectColorName = "Orange";
                 break;
             case MinoColor.Yellow:
+                _currentBlocks[0, 0] = 19;
+                _currentBlocks[0, 1] = 5;
+                _currentBlocks[1, 0] = 19;
+                _currentBlocks[1, 1] = 6;
+                _currentBlocks[2, 0] = 18;
+                _currentBlocks[2, 1] = 5;
+                _currentBlocks[3, 0] = 18;
+                _currentBlocks[3, 1] = 6;
                 _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.yellow;
                 _blocks[19, 6].GetComponent<SpriteRenderer>().color = Color.yellow;
                 _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.yellow;
                 _blocks[18, 6].GetComponent<SpriteRenderer>().color = Color.yellow;
+                _selectColorName = "Yellow";
                 break;
             case MinoColor.LigthBlue:
+                _currentBlocks[0, 0] = 19;
+                _currentBlocks[0, 1] = 5;
+                _currentBlocks[1, 0] = 18;
+                _currentBlocks[1, 1] = 5;
+                _currentBlocks[2, 0] = 17;
+                _currentBlocks[2, 1] = 5;
+                _currentBlocks[3, 0] = 16;
+                _currentBlocks[3, 1] = 5;
                 _blocks[19, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
                 _blocks[18, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
                 _blocks[17, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
                 _blocks[16, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
+                _selectColorName = "LigthBlue";
                 break;
         }
     }
