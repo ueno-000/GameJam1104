@@ -43,14 +43,16 @@ public class GameManager : MonoBehaviour
             var go = Instantiate(_blockLine, new Vector3(0, _y, 0), Quaternion.identity);
             GetBlock(go, i);
             _y += _addHeight;
+
         }
+        SelectMino();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SelectMino();
+            
         }   
     }
 
@@ -73,8 +75,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SelectMino()
     {
-        int number = Random.Range(0, 7);
-        _selectMino = MinoColor.Red + number;
+        //int number = Random.Range(0, 7);
+       // _selectMino = MinoColor.Red + number;
 
         switch (_selectMino)
         {
