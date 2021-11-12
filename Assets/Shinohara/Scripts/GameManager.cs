@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ランダムでミノを生成　_blocks[19, 5]が各ミノの一番上のブロックになる
     /// </summary>
-    private void SelectMino()
+    public void SelectMino()
     {
        // int number = Random.Range(0, 7);
         //_selectMino = MinoColor.Red + number;

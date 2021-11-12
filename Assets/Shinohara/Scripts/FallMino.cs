@@ -27,4 +27,16 @@ public class FallMino : MonoBehaviour
             go.GetComponent<SpriteRenderer>().color = Color.blue;
         }
     }
+
+    /// <summary>
+    /// minoを落とす関数
+    /// </summary>
+    public void FallMinoFunc()
+    {
+        float
+        if ()
+        {
+
+        }
+    }
 }
