@@ -12,10 +12,15 @@ public class FallMino : MonoBehaviour
 {
     /// <summary>minoを落とす間隔</summary>
     [SerializeField] float _fallInterval = 0;
-
+    /// <summary>操作中のミノのobject(各マス)</summary>
     GameObject[] _mino = new GameObject[4];
-    bool _isMove = true;
+    /// <summary>true = 操作中のミノのが落下して来る</summary>
+    static bool _isMoveing = true;
+    /// <summary>経過時間が入る</summary>
     float _time = 0f;
+    /// <summary>true = 操作中のミノのが落下して来る</summary>
+    public static bool IsMoveing { get => _isMoveing; set => _isMoveing = value; }
+
     void Start()
     {
         
@@ -24,21 +29,10 @@ public class FallMino : MonoBehaviour
    
     void Update()
     {
-        if (_isMove)
+        if (_isMoveing)
         {
             FallMinoFunc();
         }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            _isMove = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            _isMove = true;
-        }
-        
     }
 
     /// <summary>
