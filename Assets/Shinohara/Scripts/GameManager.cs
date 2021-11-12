@@ -12,7 +12,9 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     /// <summary> ブロックの場所 最初の添え字が行,2番目が列</summary>
-    GameObject[,] _blocks = new GameObject[20, 10];
+    static GameObject[,] _blocks = new GameObject[20, 10];
+    /// <summary>操作中ミノの各マス</summary>
+    static int[,] _currentBlocks = new int[4, 2];
     /// <summary>土台となる列</summary>
     [SerializeField] GameObject _blockLine = default;
     [Tooltip("一番下の列の高さの位置 プレハブのLineの大きさも関係して来る")]
@@ -21,26 +23,26 @@ public class GameManager : MonoBehaviour
     [Tooltip("次の列が生成される場所 指定した数字分上に列が作られる 隙間のないように調整する")]
     /// <summary>次の列が生成される場所 指定した数字分上に列が作られる</summary>
     [SerializeField] float _addHeight = 0;
+    
+    /// <summary>生成したミノ（操作中ミノ）</summary>
+    MinoColor _selectMino = MinoColor.Red;
 
-    MinoColor _selectMino = default;
-    //test用の数字
-    [SerializeField] int x = 0;
-    [SerializeField] int y = 0;
-    // Start is called before the first frame update
+    /// <summary>操作中ミノの各マス</summary>
+    public static int[,] CurrentBlocks { get => _currentBlocks; set => _currentBlocks = value; }
+    /// <summary> ブロックの場所 最初の添え字が行,2番目が列</summary>
+    public static GameObject[,] Blocks { get => _blocks; set => _blocks = value; }
+
     void Start()
     {
         //20行列作りたいので20回まわす 土台
         for (var i = 0; i < 20; i++)
         {
-           var go = Instantiate(_blockLine, new Vector3(0, _y, 0), Quaternion.identity);
+            var go = Instantiate(_blockLine, new Vector3(0, _y, 0), Quaternion.identity);
             GetBlock(go, i);
             _y += _addHeight;
         }
-
-       
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -63,18 +65,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ランダムでミノを生成　_blocks[19, 5]が各ミノの一番上のブロックになる
+    /// </summary>
     private void SelectMino()
     {
-        int number = Random.Range(0, 7);
-        _selectMino = MinoColor.Red + number;
-        Debug.Log(_selectMino);
+       // int number = Random.Range(0, 7);
+        //_selectMino = MinoColor.Red + number;
         switch (_selectMino)
         {
             case MinoColor.Red:
+                _currentBlocks[0, 0] = 19;
+                _currentBlocks[0, 1] = 5;
+                _currentBlocks[1, 0] = 18;
+                _currentBlocks[1, 1] = 5;
+                _currentBlocks[2, 0] = 18;
+                _currentBlocks[2, 1] = 6;
+                _currentBlocks[3, 0] = 17;
+                _currentBlocks[3, 1] = 6;
                 _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.red;
-                _blocks[18, 4].GetComponent<SpriteRenderer>().color = Color.red;
                 _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.red;
-                _blocks[17, 4].GetComponent<SpriteRenderer>().color = Color.red;
+                _blocks[18, 6].GetComponent<SpriteRenderer>().color = Color.red;
+                _blocks[17, 6].GetComponent<SpriteRenderer>().color = Color.red;
                 break;
             case MinoColor.Blue:
                 _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.blue;
@@ -112,13 +124,14 @@ public class GameManager : MonoBehaviour
                 _blocks[17, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
                 _blocks[16, 5].GetComponent<SpriteRenderer>().color = new Color(0, 0.9f, 1);
                 break;
-
-
-
         }
     }
 }
 
+/// <summary>
+/// この中からランダムで選択しその色のミノ
+/// を生成する
+/// </summary>
 public enum MinoColor
 {
     Red,
