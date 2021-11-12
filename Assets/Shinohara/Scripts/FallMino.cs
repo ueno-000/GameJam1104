@@ -33,10 +33,10 @@ public class FallMino : MonoBehaviour
     /// </summary>
     public void FallMinoFunc()
     {
-        float
-        if ()
-        {
+        //float
+        //if ()
+        //{
 
-        }
+        //}
     }
 }
