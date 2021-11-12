@@ -26,11 +26,14 @@ public class GameManager : MonoBehaviour
     
     /// <summary>生成したミノ（操作中ミノ）</summary>
     MinoColor _selectMino = MinoColor.Red;
-
+    /// <summary>生成されたミノ色の名前</summary>
+    static string _selectColorName = "";
     /// <summary>操作中ミノの各マス</summary>
     public static int[,] CurrentBlocks { get => _currentBlocks; set => _currentBlocks = value; }
     /// <summary> ブロックの場所 最初の添え字が行,2番目が列</summary>
     public static GameObject[,] Blocks { get => _blocks; set => _blocks = value; }
+    /// <summary>生成されたミノ色の名前</summary>
+    public static string SelectColorName { get => _selectColorName; set => _selectColorName = value; }
 
     void Start()
     {
@@ -70,8 +73,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SelectMino()
     {
-       // int number = Random.Range(0, 7);
-        //_selectMino = MinoColor.Red + number;
+        int number = Random.Range(0, 7);
+        _selectMino = MinoColor.Red + number;
+
         switch (_selectMino)
         {
             case MinoColor.Red:
@@ -87,6 +91,7 @@ public class GameManager : MonoBehaviour
                 _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.red;
                 _blocks[18, 6].GetComponent<SpriteRenderer>().color = Color.red;
                 _blocks[17, 6].GetComponent<SpriteRenderer>().color = Color.red;
+                _selectColorName = "Red";
                 break;
             case MinoColor.Blue:
                 _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.blue;
