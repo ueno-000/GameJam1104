@@ -147,32 +147,33 @@ public class BlockStateController : MonoBehaviour
                 }
 
                 //回転ボタンが押された際に背景色の変更、下面の変更
-                //if (Input.GetButtonDown("Fire1"))
-                //{
-                //    _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
-                //    _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
-                //    _blocks[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
-                //    _blocks[3] = GameManager.Blocks[GameManager.CurrentBlocks[3, 0], GameManager.CurrentBlocks[3, 1]];
+                //３ブロック以上長いミノは他のブロックと接地していても例外的に回転できる
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
+                    _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
+                    _blocks[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
+                    _blocks[3] = GameManager.Blocks[GameManager.CurrentBlocks[3, 0], GameManager.CurrentBlocks[3, 1]];
 
-                //    Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = Color.white);
+                    Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = Color.white);
 
-                //    GameManager.CurrentBlocks[0, 1] += 1;
-                //    GameManager.CurrentBlocks[1, 1] += 1;
-                //    GameManager.CurrentBlocks[2, 1] += 1;
-                //    GameManager.CurrentBlocks[3, 1] += 1;
+                    GameManager.CurrentBlocks[0, 1] += 1;
+                    GameManager.CurrentBlocks[1, 1] += 1;
+                    GameManager.CurrentBlocks[2, 1] += 1;
+                    GameManager.CurrentBlocks[3, 1] += 1;
 
-                //    _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
-                //    _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
-                //    _blocks[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
-                //    _blocks[3] = GameManager.Blocks[GameManager.CurrentBlocks[3, 0], GameManager.CurrentBlocks[3, 1]];
+                    _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
+                    _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
+                    _blocks[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
+                    _blocks[3] = GameManager.Blocks[GameManager.CurrentBlocks[3, 0], GameManager.CurrentBlocks[3, 1]];
 
-                //    _blocks[0].GetComponent<SpriteRenderer>().color = _colorcode;
-                //    _blocks[1].GetComponent<SpriteRenderer>().color = _colorcode;
-                //    _blocks[2].GetComponent<SpriteRenderer>().color = _colorcode;
-                //    _blocks[3].GetComponent<SpriteRenderer>().color = _colorcode;
+                    _blocks[0].GetComponent<SpriteRenderer>().color = _colorcode;
+                    _blocks[1].GetComponent<SpriteRenderer>().color = _colorcode;
+                    _blocks[2].GetComponent<SpriteRenderer>().color = _colorcode;
+                    _blocks[3].GetComponent<SpriteRenderer>().color = _colorcode;
 
-                //    Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = _colorcode);
-                //}
+                    Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = _colorcode);
+                }
                 //落下しきったことを判定してLandingへStateを変更する、下面の判定
                 break;
 
