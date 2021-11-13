@@ -431,19 +431,145 @@ public class BlockStateController : MonoBehaviour
                 //落下しきったことを判定してLandingへStateを変更する、下面の判定
                 if (_color == "Red")
                 {
-                    if (_rotate == 1 && GameManager.Blocks[GameManager.CurrentBlocks[3,0]-1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End" )
-                    {
-                        blockState = BlockState.Landing;
-                    }
-                    else if (_rotate == 2 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
-                    {
-                        blockState = BlockState.Landing;
-                    }
-                    else if (_rotate == 3 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    if (GameManager.CurrentBlocks[0, 0] == 0 || GameManager.CurrentBlocks[1, 0] == 0 || GameManager.CurrentBlocks[2, 0] == 0 || GameManager.CurrentBlocks[3, 0] == 0)
                     {
                         blockState = BlockState.Landing;
                     }
                     else if (_rotate == 1 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 2 && (GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 3 && GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 4 && (GameManager.Blocks[GameManager.CurrentBlocks[2, 0] - 1, GameManager.CurrentBlocks[2, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                }
+                else if (_color == "Blue")
+                {
+                    if (GameManager.CurrentBlocks[0, 0] == 0 || GameManager.CurrentBlocks[1, 0] == 0 || GameManager.CurrentBlocks[2, 0] == 0 || GameManager.CurrentBlocks[3, 0] == 0)
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 1 && (GameManager.Blocks[GameManager.CurrentBlocks[2, 0] - 1, GameManager.CurrentBlocks[2, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 2 && (GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[2, 0] - 1, GameManager.CurrentBlocks[2, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 3 && GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 4 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                }
+                else if (_color == "Green")
+                {
+                    if (GameManager.CurrentBlocks[0, 0] == 0 || GameManager.CurrentBlocks[1, 0] == 0 || GameManager.CurrentBlocks[2, 0] == 0 || GameManager.CurrentBlocks[3, 0] == 0)
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 1 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 2 && (GameManager.Blocks[GameManager.CurrentBlocks[2, 0] - 1, GameManager.CurrentBlocks[2, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 3 && GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 4 && (GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                }
+                else if (_color == "Purple")
+                {
+                    if (GameManager.CurrentBlocks[0, 0] == 0 || GameManager.CurrentBlocks[1, 0] == 0 || GameManager.CurrentBlocks[2, 0] == 0 || GameManager.CurrentBlocks[3, 0] == 0)
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 1 && (GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[2, 0] - 1, GameManager.CurrentBlocks[2, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 2 && GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 3 && GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 4 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                }
+                else if (_color == "Orange")
+                {
+                    if (GameManager.CurrentBlocks[0, 0] == 0 || GameManager.CurrentBlocks[1, 0] == 0 || GameManager.CurrentBlocks[2, 0] == 0 || GameManager.CurrentBlocks[3, 0] == 0)
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 1 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 2 && GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 3 && GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 4 && (GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[2, 0] - 1, GameManager.CurrentBlocks[2, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                }
+                else if (_color == "Yellow")
+                {
+                    if (GameManager.CurrentBlocks[0, 0] == 0 || GameManager.CurrentBlocks[1, 0] == 0 || GameManager.CurrentBlocks[2, 0] == 0 || GameManager.CurrentBlocks[3, 0] == 0)
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if ( GameManager.Blocks[GameManager.CurrentBlocks[2, 0] - 1, GameManager.CurrentBlocks[2, 1]].gameObject.tag == "End"|| GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                }
+                else if (_color == "LigthBlue")
+                {
+                    if (GameManager.CurrentBlocks[0, 0] == 0 || (GameManager.Blocks[GameManager.CurrentBlocks[2, 0] - 1, GameManager.CurrentBlocks[2, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 1 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if ((_rotate == 2 || _rotate == 4) && (GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End" || GameManager.Blocks[GameManager.CurrentBlocks[2, 0] - 1, GameManager.CurrentBlocks[2, 1]].gameObject.tag == "End"||GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End"))
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 3 && GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]].gameObject.tag == "End")
                     {
                         blockState = BlockState.Landing;
                     }
@@ -452,6 +578,7 @@ public class BlockStateController : MonoBehaviour
 
             case BlockState.Landing:
                 //
+                Debug.Log("着地した！");
                 //tag変更
                 //FallMInoのBool型をFalseに
                 //ミノがはみ出したらEndへ、それ以外はStartへ
