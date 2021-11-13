@@ -9,6 +9,7 @@ public class BlockStateController : MonoBehaviour
     float _time = 0f;
     GameObject[] _blocks = new GameObject[4];
     Color _colorcode;
+    [SerializeField]int _rotate = 1;
 
     //string _color;
     //生成後から着地するまでのミノの状態を管理するenum
@@ -23,7 +24,7 @@ public class BlockStateController : MonoBehaviour
     BlockState blockState;
     void Start()
     {
-        blockState = BlockState.Start;
+        blockState = BlockState.Start;       
         //CheckBlock();
     }
     void Update()
@@ -91,33 +92,33 @@ public class BlockStateController : MonoBehaviour
                 //左右移動
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    
+
                     Debug.Log("Aおされた");
 
-                        _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
-                        _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
-                        _blocks[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
-                        _blocks[3] = GameManager.Blocks[GameManager.CurrentBlocks[3, 0], GameManager.CurrentBlocks[3, 1]];
+                    _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
+                    _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
+                    _blocks[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
+                    _blocks[3] = GameManager.Blocks[GameManager.CurrentBlocks[3, 0], GameManager.CurrentBlocks[3, 1]];
 
-                        Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = Color.white);
+                    Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = Color.white);
 
-                        GameManager.CurrentBlocks[0, 1] -= 1;
-                        GameManager.CurrentBlocks[1, 1] -= 1;
-                        GameManager.CurrentBlocks[2, 1] -= 1;
-                        GameManager.CurrentBlocks[3, 1] -= 1;
+                    GameManager.CurrentBlocks[0, 1] -= 1;
+                    GameManager.CurrentBlocks[1, 1] -= 1;
+                    GameManager.CurrentBlocks[2, 1] -= 1;
+                    GameManager.CurrentBlocks[3, 1] -= 1;
 
-                        _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
-                        _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
-                        _blocks[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
-                        _blocks[3] = GameManager.Blocks[GameManager.CurrentBlocks[3, 0], GameManager.CurrentBlocks[3, 1]];
+                    _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
+                    _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
+                    _blocks[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
+                    _blocks[3] = GameManager.Blocks[GameManager.CurrentBlocks[3, 0], GameManager.CurrentBlocks[3, 1]];
 
-                        _blocks[0].GetComponent<SpriteRenderer>().color = _colorcode;
-                        _blocks[1].GetComponent<SpriteRenderer>().color = _colorcode;
-                        _blocks[2].GetComponent<SpriteRenderer>().color = _colorcode;
-                        _blocks[3].GetComponent<SpriteRenderer>().color = _colorcode;
+                    _blocks[0].GetComponent<SpriteRenderer>().color = _colorcode;
+                    _blocks[1].GetComponent<SpriteRenderer>().color = _colorcode;
+                    _blocks[2].GetComponent<SpriteRenderer>().color = _colorcode;
+                    _blocks[3].GetComponent<SpriteRenderer>().color = _colorcode;
 
-                        Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = _colorcode);
-                    
+                    Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = _colorcode);
+
                 }
                 else if (Input.GetKeyDown(KeyCode.D))
                 {
@@ -146,21 +147,272 @@ public class BlockStateController : MonoBehaviour
                     Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = _colorcode);
                 }
 
-                //回転ボタンが押された際に背景色の変更、下面の変更
+                //回転ボタンが押された際に背景色の変更、rotateの変更
                 //３ブロック以上長いミノは他のブロックと接地していても例外的に回転できる
                 if (Input.GetButtonDown("Fire1"))
                 {
+
                     _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
                     _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
                     _blocks[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
                     _blocks[3] = GameManager.Blocks[GameManager.CurrentBlocks[3, 0], GameManager.CurrentBlocks[3, 1]];
 
                     Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = Color.white);
+                    if (_color == "Red")
+                    {
+                        if (_rotate == 1)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 1;
+                            GameManager.CurrentBlocks[0, 1] -= 1;
+                            GameManager.CurrentBlocks[2, 0] += 1;
+                            GameManager.CurrentBlocks[2, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] += 2;
+                            _rotate = 2;
+                        }
+                        else if (_rotate == 2)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 1;
+                            GameManager.CurrentBlocks[0, 1] += 1;
+                            GameManager.CurrentBlocks[2, 0] -= 1;
+                            GameManager.CurrentBlocks[2, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 1] -= 2;
+                            _rotate = 3;
+                        }
+                        else if (_rotate == 3)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 1;
+                            GameManager.CurrentBlocks[0, 1] += 1;
+                            GameManager.CurrentBlocks[2, 0] -= 1;
+                            GameManager.CurrentBlocks[2, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] -= 2;
+                            _rotate = 4;
+                        }
+                        else if (_rotate == 4)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 1;
+                            GameManager.CurrentBlocks[0, 1] -= 1;
+                            GameManager.CurrentBlocks[2, 0] += 1;
+                            GameManager.CurrentBlocks[2, 1] += 1;
+                            GameManager.CurrentBlocks[3, 1] += 2;
+                            _rotate = 1;
+                        }
 
-                    GameManager.CurrentBlocks[0, 1] += 1;
-                    GameManager.CurrentBlocks[1, 1] += 1;
-                    GameManager.CurrentBlocks[2, 1] += 1;
-                    GameManager.CurrentBlocks[3, 1] += 1;
+
+                    }
+                    else if (_color == "Blue")
+                    {
+                        if (_rotate == 1)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 2;
+                            GameManager.CurrentBlocks[0, 1] -= 2;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 2;
+                        }
+                        else if (_rotate == 2)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 2;
+                            GameManager.CurrentBlocks[0, 1] += 2;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 3;
+                        }
+                        else if (_rotate == 3)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 2;
+                            GameManager.CurrentBlocks[0, 1] += 2;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 4;
+                        }
+                        else if (_rotate == 4)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 2;
+                            GameManager.CurrentBlocks[0, 1] -= 2;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 1;
+                        }
+                    }
+                    else if (_color == "Green")
+                    {
+                        if (_rotate == 1)
+                        {
+                            GameManager.CurrentBlocks[0, 1] -= 2;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 2;
+                        }
+                        else if (_rotate == 2)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 2;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 3;
+                        }
+                        else if (_rotate == 3)
+                        {
+                            GameManager.CurrentBlocks[0, 1] += 2;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 4;
+                        }
+                        else if (_rotate == 4)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 2;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 1;
+                        }   
+                    }
+                    else if (_color == "Purple")
+                    {
+                        if (_rotate == 1)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 1;
+                            GameManager.CurrentBlocks[0, 1] -= 1;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 2;
+                        }
+                        else if (_rotate == 2)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 1;
+                            GameManager.CurrentBlocks[0, 1] += 1;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 3;
+                        }
+                        else if (_rotate == 3)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 1;
+                            GameManager.CurrentBlocks[0, 1] += 1;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 4;
+                        }
+                        else if (_rotate == 4)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 1;
+                            GameManager.CurrentBlocks[0, 1] -= 1;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 1;
+                        }
+                    }
+                    else if (_color == "Orange")
+                    {
+                        if (_rotate == 1)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 2;
+                            GameManager.CurrentBlocks[0, 1] -= 2;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 2;
+                        }
+                        else if (_rotate == 2)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 2;
+                            GameManager.CurrentBlocks[0, 1] += 2;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 3;
+                        }
+                        else if (_rotate == 3)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 2;
+                            GameManager.CurrentBlocks[0, 1] += 2;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 4;
+                        }
+                        else if (_rotate == 4)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 2;
+                            GameManager.CurrentBlocks[0, 1] -= 2;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 1;
+                        }
+                    }
+
+                    else if (_color == "LigthBlue")
+                    {
+                        if (_rotate == 1)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 2;
+                            GameManager.CurrentBlocks[0, 1] -= 2;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 2;
+                        }
+                        else if (_rotate == 2)
+                        {
+                            GameManager.CurrentBlocks[0, 0] -= 2;
+                            GameManager.CurrentBlocks[0, 1] += 2;
+                            GameManager.CurrentBlocks[1, 0] -= 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] += 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 3;
+                        }
+                        else if (_rotate == 3)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 2;
+                            GameManager.CurrentBlocks[0, 1] += 2;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] += 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] -= 1;
+                            _rotate = 4;
+                        }
+                        else if (_rotate == 4)
+                        {
+                            GameManager.CurrentBlocks[0, 0] += 2;
+                            GameManager.CurrentBlocks[0, 1] -= 2;
+                            GameManager.CurrentBlocks[1, 0] += 1;
+                            GameManager.CurrentBlocks[1, 1] -= 1;
+                            GameManager.CurrentBlocks[3, 0] -= 1;
+                            GameManager.CurrentBlocks[3, 1] += 1;
+                            _rotate = 1;
+                        }
+
+
+                    }
 
                     _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
                     _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
@@ -173,8 +425,29 @@ public class BlockStateController : MonoBehaviour
                     _blocks[3].GetComponent<SpriteRenderer>().color = _colorcode;
 
                     Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = _colorcode);
+
+
                 }
                 //落下しきったことを判定してLandingへStateを変更する、下面の判定
+                if (_color == "Red")
+                {
+                    if (_rotate == 1 && GameManager.Blocks[GameManager.CurrentBlocks[3,0]-1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End" )
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 2 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 3 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                    else if (_rotate == 1 && GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]].gameObject.tag == "End")
+                    {
+                        blockState = BlockState.Landing;
+                    }
+                }
                 break;
 
             case BlockState.Landing:
