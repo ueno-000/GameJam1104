@@ -191,6 +191,39 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+
+    /// <summary>
+    /// 各列が揃っているか調べる関数 揃っていたらその列を白くする
+    /// </summary>
+    public static void CheckLine()
+    {
+        int totalBlocks = 0;
+        GameObject[] colorBlocks = new GameObject[10];
+        for (int y = 0; y < 20; y++)
+        {
+            for (int x = 0; x < 10; x++)
+            {
+                if (_blocks[y, x].tag == "Block")
+                {
+                    totalBlocks++;
+                    colorBlocks[x] = _blocks[y, x];
+                }
+                else
+                {
+                    Array.ForEach(colorBlocks, g => g = null);
+                    totalBlocks = 0;
+                    break;
+                }
+
+                if (totalBlocks == 10)
+                {
+                    Array.ForEach(colorBlocks, g => g.GetComponent<SpriteRenderer>().color = Color.red);
+                    totalBlocks = 0;
+                }
+            }
+        }
+    }
 }
 
 /// <summary>

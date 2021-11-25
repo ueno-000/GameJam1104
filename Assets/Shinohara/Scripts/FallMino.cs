@@ -35,6 +35,7 @@ public class FallMino : MonoBehaviour
         }
         else if (GameManager.CurrentBlocks[0, 0] == 1 || GameManager.CurrentBlocks[1, 0] == 1 || GameManager.CurrentBlocks[2, 0] == 1 || GameManager.CurrentBlocks[3, 0] == 1)
         {
+            GameManager.CheckLine();
             _isMoveing = false;
         }
 
