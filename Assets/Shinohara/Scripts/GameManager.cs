@@ -51,10 +51,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!FallMino.IsMoveing)
         {
             SelectMino();
+            FallMino.IsMoveing = true;
         }
+            
+        
     }
 
     /// <summary>
@@ -81,7 +84,7 @@ public class GameManager : MonoBehaviour
 
         switch (_selectMino)
         {
-            case MinoColor.Red:
+            case MinoColor.Green:
                 _currentBlocks[0, 0] = 19;
                 _currentBlocks[0, 1] = 5;
                 _currentBlocks[1, 0] = 18;
@@ -90,11 +93,11 @@ public class GameManager : MonoBehaviour
                 _currentBlocks[2, 1] = 6;
                 _currentBlocks[3, 0] = 17;
                 _currentBlocks[3, 1] = 6;
-                _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.red;
-                _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.red;
-                _blocks[18, 6].GetComponent<SpriteRenderer>().color = Color.red;
-                _blocks[17, 6].GetComponent<SpriteRenderer>().color = Color.red;
-                _selectColorName = "Red";
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.green;
+                _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.green;
+                _blocks[18, 6].GetComponent<SpriteRenderer>().color = Color.green;
+                _blocks[17, 6].GetComponent<SpriteRenderer>().color = Color.green;
+                _selectColorName = "Green";
                 break;
             case MinoColor.Blue:
                 _currentBlocks[0, 0] = 19;
@@ -111,7 +114,7 @@ public class GameManager : MonoBehaviour
                 _blocks[17, 6].GetComponent<SpriteRenderer>().color = Color.blue;
                 _selectColorName = "Blue";
                 break;
-            case MinoColor.Green:
+            case MinoColor.Red:
                 _currentBlocks[0, 0] = 19;
                 _currentBlocks[0, 1] = 5;
                 _currentBlocks[1, 0] = 18;
@@ -120,11 +123,11 @@ public class GameManager : MonoBehaviour
                 _currentBlocks[2, 1] = 4;
                 _currentBlocks[3, 0] = 17;
                 _currentBlocks[3, 1] = 4;
-                _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.green;
-                _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.green;
-                _blocks[18, 4].GetComponent<SpriteRenderer>().color = Color.green;
-                _blocks[17, 4].GetComponent<SpriteRenderer>().color = Color.green;
-                _selectColorName = "Green";
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = Color.red;
+                _blocks[18, 5].GetComponent<SpriteRenderer>().color = Color.red;
+                _blocks[18, 4].GetComponent<SpriteRenderer>().color = Color.red;
+                _blocks[17, 4].GetComponent<SpriteRenderer>().color = Color.red;
+                _selectColorName = "Red";
                 break;
             case MinoColor.Purple:
                 _currentBlocks[0, 0] = 19;

@@ -29,10 +29,26 @@ public class FallMino : MonoBehaviour
    
     void Update()
     {
-        if (_isMoveing)
+        if (_isMoveing && GameManager.CurrentBlocks[0, 0] != 1 && GameManager.CurrentBlocks[1, 0] != 1 && GameManager.CurrentBlocks[2, 0] != 1 && GameManager.CurrentBlocks[3, 0] != 1)
         {
             FallMinoFunc();
         }
+        else if (GameManager.CurrentBlocks[0, 0] == 1 || GameManager.CurrentBlocks[1, 0] == 1 || GameManager.CurrentBlocks[2, 0] == 1 || GameManager.CurrentBlocks[3, 0] == 1)
+        {
+            _isMoveing = false;
+        }
+
+        //Debug.Log(GameManager.CurrentBlocks[0, 0]);
+        //Debug.Log(GameManager.CurrentBlocks[0, 0]);
+
+        //MinoLimit();
+
+        GameManager.CurrentBlocks[0, 0] = Mathf.Clamp(GameManager.CurrentBlocks[0, 0], 0, 20);
+        GameManager.CurrentBlocks[1, 0] = Mathf.Clamp(GameManager.CurrentBlocks[1, 0], 0, 20);
+        GameManager.CurrentBlocks[2, 0] = Mathf.Clamp(GameManager.CurrentBlocks[2, 0], 0, 20);
+        GameManager.CurrentBlocks[3, 0] = Mathf.Clamp(GameManager.CurrentBlocks[3, 0], 0, 20);
+
+
     }
 
     /// <summary>
@@ -58,10 +74,6 @@ public class FallMino : MonoBehaviour
             GameManager.CurrentBlocks[2, 0] -= 1;
             GameManager.CurrentBlocks[3, 0] -= 1;
 
-            GameManager.CurrentBlocks[0, 0] = Mathf.Clamp(GameManager.CurrentBlocks[0, 0], 0, 20);
-            GameManager.CurrentBlocks[1, 0] = Mathf.Clamp(GameManager.CurrentBlocks[1, 0], 0, 20);
-            GameManager.CurrentBlocks[2, 0] = Mathf.Clamp(GameManager.CurrentBlocks[2, 0], 0, 20);
-            GameManager.CurrentBlocks[3, 0] = Mathf.Clamp(GameManager.CurrentBlocks[3, 0], 0, 20);
             _mino[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
             _mino[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
             _mino[2] = GameManager.Blocks[GameManager.CurrentBlocks[2, 0], GameManager.CurrentBlocks[2, 1]];
@@ -69,6 +81,8 @@ public class FallMino : MonoBehaviour
 
             Array.ForEach(_mino, g => g.GetComponent<SpriteRenderer>().color = ChangeColor(GameManager.SelectColorName));
         }
+
+        
     }
 
     /// <summary>
@@ -106,3 +120,5 @@ public class FallMino : MonoBehaviour
         return minoColor;
     }
 }
+
+ //&& GameManager.CurrentBlocks[0, 1] != 9 && GameManager.CurrentBlocks[1, 1] != 9 && GameManager.CurrentBlocks[2, 1] != 9 && GameManager.CurrentBlocks[3, 1] != 9
