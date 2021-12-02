@@ -45,18 +45,10 @@ public class GameManager : MonoBehaviour
             _y += _addHeight;
 
         }
-
-        SelectMino();
     }
 
     void Update()
     {
-        if (!FallMino.IsMoveing)
-        {
-            SelectMino();
-            FallMino.IsMoveing = true;
-        }
-            
         
     }
 
@@ -80,7 +72,8 @@ public class GameManager : MonoBehaviour
     public void SelectMino()
     {
         int number = Random.Range(0, 7);
-        _selectMino =  (MinoColor)number;
+        _selectMino = (MinoColor)number;
+        FallMino.IsMoveing = true;
 
         switch (_selectMino)
         {
@@ -204,7 +197,7 @@ public class GameManager : MonoBehaviour
         {
             for (int x = 0; x < 10; x++)
             {
-                if (_blocks[y, x].tag == "Block")
+                if (_blocks[y, x].tag == "Fixed")
                 {
                     totalBlocks++;
                     colorBlocks[x] = _blocks[y, x];
@@ -218,7 +211,8 @@ public class GameManager : MonoBehaviour
 
                 if (totalBlocks == 10)
                 {
-                    Array.ForEach(colorBlocks, g => g.GetComponent<SpriteRenderer>().color = Color.red);
+                    Array.ForEach(colorBlocks, g => g.GetComponent<SpriteRenderer>().color = Color.white);
+                    Array.ForEach(colorBlocks, g => g.tag = "Empty");
                     totalBlocks = 0;
                 }
             }

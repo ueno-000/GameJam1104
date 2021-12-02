@@ -9,6 +9,8 @@ TagManager:
   - GameManager
   - Change
   - Rad
+  - Fixed
+  - Empty
   layers:
   - Default
   - TransparentFX

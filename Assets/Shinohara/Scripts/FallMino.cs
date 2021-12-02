@@ -29,27 +29,14 @@ public class FallMino : MonoBehaviour
    
     void Update()
     {
-        if (_isMoveing && GameManager.CurrentBlocks[0, 0] != 1 && GameManager.CurrentBlocks[1, 0] != 1 && GameManager.CurrentBlocks[2, 0] != 1 && GameManager.CurrentBlocks[3, 0] != 1)
+        if (_isMoveing && GameManager.CurrentBlocks[0, 0] != 0 && GameManager.CurrentBlocks[1, 0] != 0 && GameManager.CurrentBlocks[2, 0] != 0 && GameManager.CurrentBlocks[3, 0] != 0)
         {
             FallMinoFunc();
         }
-        else if (GameManager.CurrentBlocks[0, 0] == 1 || GameManager.CurrentBlocks[1, 0] == 1 || GameManager.CurrentBlocks[2, 0] == 1 || GameManager.CurrentBlocks[3, 0] == 1)
-        {
-            GameManager.CheckLine();
-            _isMoveing = false;
-        }
-
-        //Debug.Log(GameManager.CurrentBlocks[0, 0]);
-        //Debug.Log(GameManager.CurrentBlocks[0, 0]);
-
-        //MinoLimit();
-
-        GameManager.CurrentBlocks[0, 0] = Mathf.Clamp(GameManager.CurrentBlocks[0, 0], 0, 20);
-        GameManager.CurrentBlocks[1, 0] = Mathf.Clamp(GameManager.CurrentBlocks[1, 0], 0, 20);
-        GameManager.CurrentBlocks[2, 0] = Mathf.Clamp(GameManager.CurrentBlocks[2, 0], 0, 20);
-        GameManager.CurrentBlocks[3, 0] = Mathf.Clamp(GameManager.CurrentBlocks[3, 0], 0, 20);
-
-
+        //else if (GameManager.CurrentBlocks[0, 0] == 0 || GameManager.CurrentBlocks[1, 0] == 0 || GameManager.CurrentBlocks[2, 0] == 0 || GameManager.CurrentBlocks[3, 0] == 0)
+        //{   
+        //    //_isMoveing = false;
+        //}
     }
 
     /// <summary>
