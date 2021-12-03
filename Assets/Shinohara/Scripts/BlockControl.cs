@@ -11,6 +11,10 @@ public class BlockControl : MonoBehaviour
     Color _colorcode;
     string _currentColoer = "";
     bool _aroundFlag = true;
+    bool _isLeftSide = true;
+    bool _isRightSide = true;
+    bool _leftSideFixed = false;
+    bool _rightSideFixd = false;
     [SerializeField] int _rotate = 1;
 
     //string _color;
@@ -32,8 +36,11 @@ public class BlockControl : MonoBehaviour
     void Update()
     {
         //_time += Time.deltaTime;
-        CheckBlock();
+        _isLeftSide = IsLeftSide();
+        _isRightSide = IsRightSide();
+        CheckSide();
         CheckUnder();
+        CheckBlock();
     }
 
     //ミノの状態に応じて処理を行う関数
@@ -95,7 +102,7 @@ public class BlockControl : MonoBehaviour
                 }
 
                 //左右移動
-                if (Input.GetKeyDown(KeyCode.A) && GameManager.CurrentBlocks[0, 1] != 0 && GameManager.CurrentBlocks[1, 1] != 0 && GameManager.CurrentBlocks[2, 1] != 0 && GameManager.CurrentBlocks[3, 1] != 0)
+                if (Input.GetKeyDown(KeyCode.A) && _isLeftSide)
                 {
                     _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
                     _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
@@ -122,7 +129,7 @@ public class BlockControl : MonoBehaviour
                     Array.ForEach(_blocks, g => g.GetComponent<SpriteRenderer>().color = _colorcode);
 
                 }
-                else if (Input.GetKeyDown(KeyCode.D) && GameManager.CurrentBlocks[0, 1] != 9 && GameManager.CurrentBlocks[1, 1] != 9 && GameManager.CurrentBlocks[2, 1] != 9 && GameManager.CurrentBlocks[3, 1] != 9)
+                else if (Input.GetKeyDown(KeyCode.D) && _isRightSide)
                 {
                     _blocks[0] = GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1]];
                     _blocks[1] = GameManager.Blocks[GameManager.CurrentBlocks[1, 0], GameManager.CurrentBlocks[1, 1]];
@@ -617,7 +624,7 @@ public class BlockControl : MonoBehaviour
                 BlockCheck(GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]], GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]]);
             }
             else if (_rotate == 4 && 0 <= GameManager.CurrentBlocks[3, 0] - 2)
-            { 
+            {
                 BlockCheck(GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1] - 1], GameManager.Blocks[GameManager.CurrentBlocks[0, 0], GameManager.CurrentBlocks[0, 1] + 1], GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]]);
             }
         }
@@ -636,7 +643,7 @@ public class BlockControl : MonoBehaviour
                 BlockCheck(GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]], GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]], GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]]);
             }
             else if (_rotate == 4 && 0 <= GameManager.CurrentBlocks[3, 0] - 1)
-            { 
+            {
                 BlockCheck(GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]], GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]]);
             }
         }
@@ -674,7 +681,7 @@ public class BlockControl : MonoBehaviour
                 BlockCheck(GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]], GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]]);
             }
             else if (_rotate == 4 && 0 <= GameManager.CurrentBlocks[3, 0] - 1)
-            { 
+            {
                 BlockCheck(GameManager.Blocks[GameManager.CurrentBlocks[0, 0] - 1, GameManager.CurrentBlocks[0, 1]], GameManager.Blocks[GameManager.CurrentBlocks[1, 0] - 1, GameManager.CurrentBlocks[1, 1]], GameManager.Blocks[GameManager.CurrentBlocks[3, 0] - 1, GameManager.CurrentBlocks[3, 1]]);
             }
         }
@@ -703,6 +710,73 @@ public class BlockControl : MonoBehaviour
         }
     }
 
+    private void CheckSide()
+    {
+        if (_currentColoer == "Red")
+        {
+            IsRight(1, 0, 1);//回転１ 右を調べる
+            IsLeft(1, 2, 3);//回転１ 左を調べる
+            IsRight(2, 1, 3);//回転 2 右を調べる
+            IsLeft(2, 0, 2);//回転 2 左を調べる
+        }
+        else if (_currentColoer == "Green")
+        {
+            IsRight(1, 2, 3);//回転１　右を調べる
+            IsLeft(1, 0, 1);//回転１　左を調べる
+            IsRight(4, 0, 2);//4 右
+            IsLeft(4, 1, 3);//4 左    
+        }
+        else if (_currentColoer == "Purple")
+        {
+            IsRight(1, 0, 3); //1 右
+            IsLeft(1, 0, 1);//1 左
+            IsRight(2, 1, 2, 3);//2 右
+            IsLeft(2, 0, 1, 3);// 2　左
+            IsRight(3, 0, 1);//3 右
+            IsLeft(3, 0, 3);//3 左
+            IsRight(4, 0, 1, 3);//4 右
+            IsLeft(4, 1, 2, 3); //４　左
+        }
+        else if (_currentColoer == "LigthBlue")
+        {
+            IsRight(1, 0, 1, 2, 3);//1 右
+            IsLeft(1, 0, 1, 2, 3);//1 左
+            IsLeft(2, 0); // 2 左
+            IsRight(2, 3);　// 2 右
+            IsRight(3, 0, 1, 2, 3); //3 R
+            IsLeft(3, 0, 1, 2, 3);// 3 L
+            IsRight(4, 0);//4R
+            IsLeft(4, 3);//4L
+        }
+        else if (_currentColoer == "Blue")
+        {
+            IsRight(1, 0, 1, 3);//1R
+            IsLeft(1, 0, 1, 2);//1L
+            IsLeft(2, 0, 3);//2L
+            IsRight(2, 2, 3);//2R
+            IsRight(3, 0, 1, 2);//3R
+            IsLeft(3, 0, 1, 3);//3L
+            IsRight(4, 0, 3);//4R
+            IsLeft(4, 2, 3);
+        }
+        else if (_currentColoer == "Orange")
+        {
+            IsRight(1, 0, 1, 2);
+            IsLeft(1, 0, 1, 3);
+            IsRight(2, 2, 3);
+            IsLeft(2, 0, 3);
+            IsRight(3, 0, 1, 3);
+            IsLeft(3, 0, 1, 2);
+            IsRight(4, 0, 3);
+            IsLeft(4, 2, 3);
+        }
+        else if (_currentColoer == "Yellow" && 0 <= GameManager.CurrentBlocks[2, 0] - 1)
+        {
+            IsRight(1, 1, 3);
+            IsLeft(1, 2, 3);
+        }
+    }
+
     private void ChangeState()
     {
         if (_aroundFlag)
@@ -710,6 +784,94 @@ public class BlockControl : MonoBehaviour
             blockState = BlockState.Landing;
             _aroundFlag = false;
         }
+    }
+
+    private void IsRight(int rotate, int index1)
+    {
+        if (_rotate == rotate && 9 >= GameManager.CurrentBlocks[index1, 1] + 1)
+            BlockRightCheck(GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] + 1]);
+    }
+
+    private void IsRight(int rotate, int index1, int index2)
+    {
+        if (_rotate == rotate && 9 >= GameManager.CurrentBlocks[index1, 1] + 1 && 9 >= GameManager.CurrentBlocks[index2, 1] + 1)
+            BlockRightCheck(GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] + 1], GameManager.Blocks[GameManager.CurrentBlocks[index2, 0], GameManager.CurrentBlocks[index2, 1] + 1]);
+    }
+
+    private void IsRight(int rotate, int index1, int index2, int index3)
+    {
+        if (_rotate == rotate && 9 >= GameManager.CurrentBlocks[index1, 1] + 1 && 9 >= GameManager.CurrentBlocks[index2, 1] + 1 && 9 >= GameManager.CurrentBlocks[index3, 1] + 1)
+            BlockRightCheck(GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] + 1], GameManager.Blocks[GameManager.CurrentBlocks[index2, 0], GameManager.CurrentBlocks[index2, 1] + 1], GameManager.Blocks[GameManager.CurrentBlocks[index3, 0], GameManager.CurrentBlocks[index3, 1] + 1]);
+    }
+
+    private void IsRight(int rotate, int index1, int index2, int index3, int index4)
+    {
+        if (_rotate == rotate && 9 >= GameManager.CurrentBlocks[index1, 1] + 1 && 9 >= GameManager.CurrentBlocks[index2, 1] + 1 && 9 >= GameManager.CurrentBlocks[index3, 1] + 1 && 9 >= GameManager.CurrentBlocks[index4, 1] + 1)
+            BlockRightCheck(GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] + 1], GameManager.Blocks[GameManager.CurrentBlocks[index2, 0], GameManager.CurrentBlocks[index2, 1] + 1], GameManager.Blocks[GameManager.CurrentBlocks[index3, 0], GameManager.CurrentBlocks[index3, 1] + 1], GameManager.Blocks[GameManager.CurrentBlocks[index4, 0], GameManager.CurrentBlocks[index4, 1] + 1]);
+    }
+
+    private void IsLeft(int rotate, int index1)
+    {
+        if (_rotate == rotate && 0 <= GameManager.CurrentBlocks[index1, 1] - 1)
+            BlockLeftCheck(GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] - 1]);
+    }
+
+    private void IsLeft(int rotate, int index1, int index2)
+    {
+        if (_rotate == rotate && 0 <= GameManager.CurrentBlocks[index1, 1] - 1 && 0 <= GameManager.CurrentBlocks[index2, 1] - 1)
+            BlockLeftCheck(GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] - 1], GameManager.Blocks[GameManager.CurrentBlocks[index2, 0], GameManager.CurrentBlocks[index2, 1] - 1]);
+    }
+
+    private void IsLeft(int rotate, int index1, int index2, int index3)
+    {
+        if (_rotate == rotate && 0 <= GameManager.CurrentBlocks[index1, 1] - 1 && 0 <= GameManager.CurrentBlocks[index2, 1] - 1 && 0 <= GameManager.CurrentBlocks[index3, 1] - 1)
+            BlockLeftCheck(GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] - 1], GameManager.Blocks[GameManager.CurrentBlocks[index2, 0], GameManager.CurrentBlocks[index2, 1] - 1], GameManager.Blocks[GameManager.CurrentBlocks[index3, 0], GameManager.CurrentBlocks[index3, 1] - 1]);
+    }
+
+    private void IsLeft(int rotate, int index1, int index2, int index3, int index4)
+    {
+        if (_rotate == rotate && 0 <= GameManager.CurrentBlocks[index1, 1] - 1 && 0 <= GameManager.CurrentBlocks[index2, 1] - 1 && 0 <= GameManager.CurrentBlocks[index3, 1] - 1 && 0 <= GameManager.CurrentBlocks[index4, 1] - 1)
+            BlockLeftCheck(GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] - 1], GameManager.Blocks[GameManager.CurrentBlocks[index2, 0], GameManager.CurrentBlocks[index2, 1] - 1], GameManager.Blocks[GameManager.CurrentBlocks[index3, 0], GameManager.CurrentBlocks[index3, 1] - 1], GameManager.Blocks[GameManager.CurrentBlocks[index4, 0], GameManager.CurrentBlocks[index4, 1] - 1]);
+    }
+
+    private bool IsLeftSide()
+    {
+        if (_leftSideFixed)
+        {
+            return false;
+        }
+        else
+        {
+            if (GameManager.CurrentBlocks[0, 1] != 0 && GameManager.CurrentBlocks[1, 1] != 0 && GameManager.CurrentBlocks[2, 1] != 0 && GameManager.CurrentBlocks[3, 1] != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+    }
+
+    private bool IsRightSide()
+    {
+        if (_rightSideFixd)
+        {
+            return false;
+        }
+        else
+        {
+            if (GameManager.CurrentBlocks[0, 1] != 9 && GameManager.CurrentBlocks[1, 1] != 9 && GameManager.CurrentBlocks[2, 1] != 9 && GameManager.CurrentBlocks[3, 1] != 9)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 
     private void BlockCheck(GameObject b1)
@@ -741,6 +903,122 @@ public class BlockControl : MonoBehaviour
         if (b1.tag == "Fixed" || b2.tag == "Fixed" || b3.tag == "Fixed" || b4.tag == "Fixed")
         {
             ChangeState();
+        }
+    }
+
+    private void BlockRightCheck(GameObject b1)
+    {
+        if (b1.tag == "Fixed")
+        {
+            _rightSideFixd = true;
+        }
+        else
+        {
+            _rightSideFixd = false;
+        }
+    }
+
+    private void BlockRightCheck(GameObject b1, GameObject b2)
+    {
+        if (b1.tag == "Fixed" || b2.tag == "Fixed")
+        {
+            _rightSideFixd = true;
+        }
+        else
+        {
+            _rightSideFixd = false;
+        }
+    }
+
+    private void BlockRightCheck(GameObject b1, GameObject b2, GameObject b3)
+    {
+        if (b1.tag == "Fixed" || b2.tag == "Fixed" || b3.tag == "Fixed")
+        {
+            _rightSideFixd = true;
+        }
+        else
+        {
+            _rightSideFixd = false;
+        }
+    }
+
+    private void BlockRightCheck(GameObject b1, GameObject b2, GameObject b3, GameObject b4)
+    {
+        if (b1.tag == "Fixed" || b2.tag == "Fixed" || b3.tag == "Fixed" || b4.tag == "Fixed")
+        {
+            _rightSideFixd = true;
+        }
+        else
+        {
+            _rightSideFixd = false;
+        }
+    }
+
+    private void BlockLeftCheck(GameObject b1)
+    {
+        if (b1.tag == "Fixed")
+        {
+            _leftSideFixed = true;
+        }
+        else
+        {
+            _leftSideFixed = false;
+        }
+    }
+
+    private void BlockLeftCheck(GameObject b1, GameObject b2)
+    {
+        if (b1.tag == "Fixed" || b2.tag == "Fixed")
+        {
+            _leftSideFixed = true;
+        }
+        else
+        {
+            _leftSideFixed = false;
+        }
+    }
+
+    private void BlockLeftCheck(GameObject b1, GameObject b2, GameObject b3)
+    {
+        if (b1.tag == "Fixed" || b2.tag == "Fixed" || b3.tag == "Fixed")
+        {
+            _leftSideFixed = true;
+        }
+        else
+        {
+            _leftSideFixed = false;
+        }
+    }
+
+    private void BlockLeftCheck(GameObject b1, GameObject b2, GameObject b3, GameObject b4)
+    {
+        if (b1.tag == "Fixed" || b2.tag == "Fixed" || b3.tag == "Fixed" || b4.tag == "Fixed")
+        {
+            _leftSideFixed = true;
+        }
+        else
+        {
+            _leftSideFixed = false;
+        }
+    }
+
+    /// <summary>
+    /// 対象マスのいろ変える
+    /// </summary>
+    /// <param name="index1"></param>
+    /// <param name="index2"></param>
+    /// <param name="flag">右がtrue　左がfalse</param>
+    private void TestColor(int index1, int index2, bool flag)
+    {
+        if (flag)
+        {
+            GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] + 1].GetComponent<SpriteRenderer>().color = Color.black;
+            GameManager.Blocks[GameManager.CurrentBlocks[index2, 0], GameManager.CurrentBlocks[index2, 1] + 1].GetComponent<SpriteRenderer>().color = Color.black;
+        }
+        else
+        {
+            GameManager.Blocks[GameManager.CurrentBlocks[index1, 0], GameManager.CurrentBlocks[index1, 1] - 1].GetComponent<SpriteRenderer>().color = Color.black;
+            GameManager.Blocks[GameManager.CurrentBlocks[index2, 0], GameManager.CurrentBlocks[index2, 1] - 1].GetComponent<SpriteRenderer>().color = Color.black;
         }
     }
 }
