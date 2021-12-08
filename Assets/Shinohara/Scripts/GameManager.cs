@@ -23,9 +23,12 @@ public class GameManager : MonoBehaviour
     [Tooltip("次の列が生成される場所 指定した数字分上に列が作られる 隙間のないように調整する")]
     /// <summary>次の列が生成される場所 指定した数字分上に列が作られる</summary>
     [SerializeField] float _addHeight = 0;
-    
     /// <summary>生成したミノ（操作中ミノ）</summary>
     MinoColor _selectMino = default;
+    /// <summary>消されたラインの数</summary>
+    static int _numbers = 0;
+    /// <summary>消されたラインのy</summary>
+    static List<int> _lineY = new List<int>();
     /// <summary>生成されたミノ色の名前</summary>
     static string _selectColorName = "";
     /// <summary>操作中ミノの各マス</summary>
@@ -49,7 +52,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log(_numbers);
+        }
     }
 
     /// <summary>
@@ -59,7 +65,7 @@ public class GameManager : MonoBehaviour
     /// <param name="y">行数</param>
     private void GetBlock(GameObject line, int y)
     {
-        for (int x = 0; x < 10; x ++)
+        for (int x = 0; x < 10; x++)
         {
             var block = line.transform.GetChild(x).gameObject;
             _blocks[y, x] = block;
@@ -146,7 +152,7 @@ public class GameManager : MonoBehaviour
                 _currentBlocks[2, 1] = 5;
                 _currentBlocks[3, 0] = 17;
                 _currentBlocks[3, 1] = 4;
-                _blocks[19, 5].GetComponent<SpriteRenderer>().color = new Color(1f ,0.5f, 0);
+                _blocks[19, 5].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
                 _blocks[18, 5].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
                 _blocks[17, 5].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
                 _blocks[17, 4].GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0);
@@ -192,6 +198,7 @@ public class GameManager : MonoBehaviour
     public static void CheckLine()
     {
         int totalBlocks = 0;
+        bool dFlag = false;
         GameObject[] colorBlocks = new GameObject[10];
         for (int y = 0; y < 20; y++)
         {
@@ -213,14 +220,74 @@ public class GameManager : MonoBehaviour
                 {
                     Array.ForEach(colorBlocks, g => g.GetComponent<SpriteRenderer>().color = Color.white);
                     Array.ForEach(colorBlocks, g => g.tag = "Empty");
+                    _numbers++;
+                    _lineY.Add(y);
+                    dFlag = true;
                     totalBlocks = 0;
                 }
             }
         }
+        if (dFlag)
+        {
+            DownMino();
+        }
+        _numbers = 0;
+        _lineY.Clear();
+    }
+
+    /// <summary>消されたライン分下にミノを落とす関数</summary>
+    private static void DownMino()
+    {
+        int index = 0;
+        for (var y = _lineY[index]; y < 20; y++)
+        {
+            for (var x = 0; x < 10; x++)
+            {
+                if (_blocks[y, x].tag == "Fixed" && 0 <= y - _numbers)
+                {
+                    if (_blocks[y - _numbers, x].tag == "Empty")
+                    {
+                        Color co = _blocks[y, x].GetComponent<SpriteRenderer>().color;
+                        _blocks[y, x].GetComponent<SpriteRenderer>().color = Color.white;
+                        _blocks[y, x].tag = "Empty";
+                        _blocks[y - _numbers, x].GetComponent<SpriteRenderer>().color = co;
+                        _blocks[y - _numbers, x].tag = "Fixed";
+                    }
+                    else if (y - (_numbers - 1) < y && _blocks[y - (_numbers - 1), x].tag == "Empty")
+                    {
+                        Color co = _blocks[y, x].GetComponent<SpriteRenderer>().color;
+                        _blocks[y, x].GetComponent<SpriteRenderer>().color = Color.white;
+                        _blocks[y, x].tag = "Empty";
+                        _blocks[y - (_numbers - 1), x].GetComponent<SpriteRenderer>().color = co;
+                        _blocks[y - (_numbers - 1), x].tag = "Fixed";
+                    }
+                    else if (y - (_numbers - 2) < y && _blocks[y - (_numbers - 2), x].tag == "Empty")
+                    {
+                        Color co = _blocks[y, x].GetComponent<SpriteRenderer>().color;
+                        _blocks[y, x].GetComponent<SpriteRenderer>().color = Color.white;
+                        _blocks[y, x].tag = "Empty";
+                        _blocks[y - (_numbers - 2), x].GetComponent<SpriteRenderer>().color = co;
+                        _blocks[y - (_numbers - 2), x].tag = "Fixed";
+                    }
+                    else if (y - (_numbers - 3) < y && _blocks[y - (_numbers - 3), x].tag == "Empty")
+                    {
+                        Color co = _blocks[y, x].GetComponent<SpriteRenderer>().color;
+                        _blocks[y, x].GetComponent<SpriteRenderer>().color = Color.white;
+                        _blocks[y, x].tag = "Empty";
+                        _blocks[y - (_numbers - 2), x].GetComponent<SpriteRenderer>().color = co;
+                        _blocks[y - (_numbers - 2), x].tag = "Fixed";
+                    }
+                }
+                else if (_blocks[y, x].tag == "Fixed" && 0 <= y - _numbers)
+                {
+
+                }
+            }
+            index++;
+        }
     }
 }
 
-/// <summary>
 /// この中からランダムで選択しその色のミノ
 /// を生成する
 /// </summary>
@@ -234,3 +301,23 @@ public enum MinoColor
     Yellow,
     LigthBlue
 }
+
+//private static void DownMino(int num)
+//{
+//    for (int y = num + 1; y < 20; y++)
+//    {
+
+//        for (int x = 0; x < 10; x++)
+//        {
+//             Color co = _blocks[y, x].GetComponent<SpriteRenderer>().color;
+//             _blocks[y, x].GetComponent<SpriteRenderer>().color = Color.white;
+//            if (_blocks[y, x].tag == "Fixed")
+//            {
+//                _blocks[y, x].GetComponent<SpriteRenderer>().color = Color.white;
+//                _blocks[y, x].tag = "Empty";
+//                _blocks[y - 1, x].GetComponent<SpriteRenderer>().color = co;
+//                _blocks[y - 1, x].tag = "Fixed";
+//            }
+//        }
+//    }
+//}
